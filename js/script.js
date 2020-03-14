@@ -1,13 +1,13 @@
-today = new Date();
-currentMonth = today.getMonth();
-currentYear = today.getFullYear();
+const today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 let displayWeekDaysNames = "<tr>";
-for (dhead in days) {
+for (let dhead in days) {
   displayWeekDaysNames += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
 }
 // dataHead += "</tr>";
@@ -15,7 +15,7 @@ for (dhead in days) {
 document.getElementById("thead-month").innerHTML = displayWeekDaysNames;
 
 
-monthAndYear = document.getElementById("monthAndYear");
+const monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);
 
 
@@ -37,7 +37,7 @@ function showCalendar(month, year) {
   const firstDay = (new Date(year, month)).getDay();
   // console.log(firstDay)
 
-  tbl = document.getElementById("calendar-body");
+  const tbl = document.getElementById("calendar-body");
 
 
   tbl.innerHTML = "";
@@ -54,15 +54,15 @@ function showCalendar(month, year) {
 
     for (let j = 0; j < 7; j++) {
       if (i === 0 && j < firstDay) {
-        cell = document.createElement("td");
-        cellText = document.createTextNode("");
+        let cell = document.createElement("td");
+        let cellText = document.createTextNode("");
         cell.appendChild(cellText);
         row.appendChild(cell);
       } else if (date > daysInMonth(month, year)) {
         // console.log(daysInMonth(month, year));
         break;
       } else {
-        cell = document.createElement("td");
+        let cell = document.createElement("td");
         cell.setAttribute("data-date", date);
         cell.setAttribute("data-month", month + 1);
         cell.setAttribute("data-year", year);
@@ -82,7 +82,19 @@ function showCalendar(month, year) {
 
     tbl.appendChild(row);
   }
+  // Ading 
+  const listener = document.querySelectorAll('.date-picker');
+  listener.forEach(element => {
+    element.addEventListener('click', function () {
+      let chosenElement = element;
+      const msg = `<strong class="trick">Meeting</strong>`;
+      chosenElement.style.backgroundColor= "lightblue"
+      chosenElement.innerHTML =  chosenElement.innerHTML + msg
+      
+      
+    })
 
+  });
 }
 //number of day in any month of any year
 function daysInMonth(iMonth, iYear) {

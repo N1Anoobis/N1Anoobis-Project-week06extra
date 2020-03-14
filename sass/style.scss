@@ -41,10 +41,11 @@ body {
 }
 
 .table-calendar td, .table-calendar th {
-  padding: 5px;
+  padding: 25px;
   border: 1px solid #e2e2e2;
   text-align: center;
   vertical-align: top;
+  position: relative;
 }
 
 .date-picker.selected {
@@ -101,4 +102,14 @@ color: green;
   border: 1px solid #bfc5c5;
   border-radius: 3px;
   padding: 5px 1em;
+}
+
+.trick {
+  font-size: 8px;
+  background-color: rgb(43, 226, 119);
+ position: absolute;
+ top: 0;
+ left: -1;
+ 
+
 }
