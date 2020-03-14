@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Calenar</title>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="container-calendar">
+            <h3 id="monthAndYear"></h3>
+            
+            <div class="button-container-calendar">
+                <button id="previous" onclick="previous()">&#8249;</button>
+                <button id="next" onclick="next()">&#8250;</button>
+            </div>
+            
+            <table class="table-calendar" id="calendar" >
+                <thead id="thead-month"></thead>
+                <tbody id="calendar-body"></tbody>
+            </table>
+            
+        </div>
+        
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
