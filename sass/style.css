@@ -14,14 +14,14 @@ body {
 .wrapper {
   margin: 15px auto;
   max-width: 1100px;
+  background-color: white;
 }
 
 .container-calendar {
   background: #ffffff;
   padding: 15px;
-  max-width: 475px;
+  max-width: 600px;
   margin: 0 auto;
-  overflow: auto;
 }
 
 .button-container-calendar button {
@@ -38,9 +38,11 @@ body {
 .table-calendar {
   border-collapse: collapse;
   width: 100%;
+  cursor: pointer;
 }
 
-.table-calendar td, .table-calendar th {
+.table-calendar td,
+.table-calendar th {
   padding: 25px;
   border: 1px solid #e2e2e2;
   text-align: center;
@@ -104,10 +106,41 @@ body {
 }
 
 .trick {
-  font-size: 8px;
-  background-color: #2be277;
+  font-size: 0;
+  background-color: #94f77b;
   position: absolute;
   top: 0;
-  left: -1;
+  right: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 60%;
+  text-align: center;
+  line-height: 3.1;
+  max-width: 30px;
+  overflow: hidden;
+  z-index: 1;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.trick:hover {
+  width: 195px;
+  height: 195px;
+  max-width: 195px;
+  border-radius: 10%;
+  background-color: #6ecaee;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  text-align: center;
+  position: absolute;
+}
+
+.remove {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 /*# sourceMappingURL=style.css.map */
