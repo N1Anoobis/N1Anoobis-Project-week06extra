@@ -3,6 +3,7 @@
   let currentMonth = today.getMonth();
   let currentYear = today.getFullYear();
   let storage = [];
+
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -11,7 +12,7 @@
   for (let dhead in days) {
     displayWeekDaysNames += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
   }
-  // dataHead += "</tr>";
+ 
 
   document.getElementById("thead-month").innerHTML = displayWeekDaysNames;
 
@@ -34,9 +35,9 @@
   }
 
   function showCalendar(month, year) {
-
+    let switched = true;
     const firstDay = (new Date(year, month)).getDay();
-    // console.log(firstDay)
+   
 
     const tbl = document.getElementById("calendar-body");
 
@@ -75,60 +76,90 @@
             cell.className = "date-picker selected";
           }
           row.appendChild(cell);
+          //force to create just one .trick div when come cack from different month
+          if (document.querySelector(`[data-date="${storage[1]}"]`) && document.querySelector(`[data-month="${storage[2]+1}"]`) && switched == true) {
+            // console.log(document.querySelector(`[data-month="${storage[2]+1}"]`))
+            // console.log(document.querySelector(`[data-date="${storage[1]}"]`))
+            const msg = `<div class="trick">${storage[0]}<div class="remove">left click to remove reminder</div>
+          </div>`;
+            let savedReminder = document.querySelector(`[data-date="${storage[1]}"]`);
+            savedReminder.style.backgroundColor = "lightblue"
+            savedReminder.innerHTML = savedReminder.innerHTML + msg;
+            switched = false
+          }
           date++;
         }
-
-
       }
-
       tbl.appendChild(row);
     }
 
     // Adding the event to single day in calendar
     const listener = document.querySelectorAll('.date-picker');
     listener.forEach(element => {
-      element.addEventListener('click', function () {
+        element.addEventListener('click', function () {
+            let chosenElement = element;
+            console.log(chosenElement.querySelector('.trick'))
+            
 
-        let chosenElement = element;
+            if (!chosenElement.querySelector('.date-picker span')) {
+              return
+            }
+            let inividualArrayNumber = chosenElement.querySelector('.date-picker span').textContent
 
-        let inividualArrayNumber = chosenElement.querySelector('.date-picker span').textContent
-        console.log(inividualArrayNumber)
-        console.log(storage[1])
-        if (storage[1] === inividualArrayNumber) {
-          return alert("one at the time")
-        } else if (storage[1] !== inividualArrayNumber && storage.length > 1) {
-          return alert("one at the time")
-        }
-        let input = prompt('remind of:')
-        if (input === false || input === null || input === "" || storage.length > 0) {
-          return
-        } else {
-          storage.push(input)
-          storage.push(inividualArrayNumber)
-          console.log(storage)
-          const msg = `<div class="trick">${storage[0]}<div class="remove">left click to remove reminder</div>
-        </div>`;
-          chosenElement.style.backgroundColor = "lightblue"
-          chosenElement.innerHTML = chosenElement.innerHTML + msg;
-        }
-        const taskList = document.querySelector('.trick');
-        taskList.addEventListener('click', function check() {
-          const msg = `<div class="trick">${storage[0]}</div>`;
-          chosenElement.innerHTML = chosenElement.innerHTML - msg
-          // taskList.display= "none"
-          chosenElement.style.backgroundColor = "white"
-          chosenElement.innerHTML = storage[1]
-          storage = []
-          
-          showCalendar(month, year)
-          
-        })
-      })
-    });
+            if (storage[1] === inividualArrayNumber && (!chosenElement.querySelector('.trick'))) {
+              return alert("one at the time")
+            } else if (storage[1] !== inividualArrayNumber && storage.length > 1 && (!chosenElement.querySelector('.trick'))) {
+              return alert("one at the time")
+            }
+            
+            if (!chosenElement.querySelector('.trick')) {
+              let input = prompt('remind of:')
+                if (input === false || input === null || input === "" || storage.length > 0) {
+                  return
+                } else {
+                  storage.push(input)
+                  storage.push(inividualArrayNumber)
+                  storage.push(month)
+
+
+                  renderChosenBox()
+               
+                  console.log(storage)
+                 
+                  //Double listiner
+
+                }
+              }
+              if (chosenElement.querySelector('.trick')) {
+
+
+
+                const taskList = document.querySelector('.trick');
+                taskList.addEventListener('click', function check() {
+                  const msg = `<div class="trick">${storage[0]}</div>`;
+                  chosenElement.innerHTML = chosenElement.innerHTML - msg
+                  chosenElement.style.backgroundColor = "white"
+                  console.log(inividualArrayNumber)
+                  storage = []
+                  showCalendar(month, year)
+                })
+
+
+                
+              }
+
+              function renderChosenBox() {
+                const msg = `<div class="trick">${storage[0]}<div class="remove">left click to remove reminder</div>
+          </div>`;
+                chosenElement.style.backgroundColor = "lightblue"
+                chosenElement.innerHTML = chosenElement.innerHTML + msg;
+              }
+            })
+        });
+    }
+
+    //number of day in any month of any year
+    function daysInMonth(iMonth, iYear) {
+      return 32 - new Date(iYear, iMonth, 32).getDate();
+    }
   }
-
-  //number of day in any month of any year
-  function daysInMonth(iMonth, iYear) {
-    return 32 - new Date(iYear, iMonth, 32).getDate();
-  }
-}
