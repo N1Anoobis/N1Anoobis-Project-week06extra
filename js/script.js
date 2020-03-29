@@ -77,11 +77,11 @@
         const listener = document.querySelectorAll('.date-picker');
         //loop so listener can work for all cells
         listener.forEach(element => {
-// same sa above plus start of function triger by listiner
+            // same sa above plus start of function triger by listiner
             element.addEventListener('click', function (e) {
-            
+
                 //   e.stopImmediatePropagation()
-             // clicked element assigned to variable
+                // clicked element assigned to variable
                 let chosenElement = element;
                 console.log(chosenElement.innerHTML)
                 // clicked element first child text content
@@ -110,48 +110,19 @@
                         renderChosenBox()
                     }
                 }
-// listiner for all reminders 
 
-function trickListinerTrigger (e) {
-  //clicked value of day
-    let variable = e.target.parentElement.firstChild.textContent
-   
-    let eTargetCurrentBox = e.target.parentElement
-    //box text content
-    console.log(e.target.parentElement.firstChild.textContent)
-    // box html
-    console.log(eTargetCurrentBox)
-    for (const i of storage) {
-        //stored value of day
-        let value = i['02']
 
-        console.log(value)
-        if (variable == value) {
-            const msg = `<div class="trick"></div>`;
-            eTargetCurrentBox.innerHTML = eTargetCurrentBox.innerHTML - msg
-            eTargetCurrentBox.style.backgroundColor = "white"
-            eTargetCurrentBox.innerHTML = `<span>${variable}</span>`;
-            //FINDING INDEX OF CURRENT OBJECT AND REMOVE FROM ARRAY
-            const index = storage.findIndex(i => i['02'] == variable)
-            storage.splice(index, 1)
-            return
-        }
-    }
-}
 
-                const taskList = document.querySelectorAll('.date-picker .trick');
 
-                for (const task of taskList) {
-                    task.addEventListener('click', trickListinerTrigger )
-                }
+
 
                 function renderChosenBox() {
                     for (const i of storage) {
-                      //creating visual effects for every chosen element
+                        //creating visual effects for every chosen element
                         let textValue = i['01']
                         console.log(textValue)
 
-                        
+
                         const msg = `<div class="trick">${textValue}<div class="remove">left click to remove reminder</div>
           </div>`;
                         chosenElement.style.backgroundColor = "lightblue"
@@ -163,16 +134,48 @@ function trickListinerTrigger (e) {
         });
     }
 
+    function trickListinerTrigger(e) {
+        //clicked value of day
+        let variable = e.target.parentElement.firstChild.textContent
+
+        let eTargetCurrentBox = e.target.parentElement
+        //box text content
+        console.log(e.target.parentElement.firstChild.textContent)
+        // box html
+        console.log(eTargetCurrentBox)
+        for (const i of storage) {
+            //stored value of day
+            let value = i['02']
+
+            console.log(value)
+            if (variable == value) {
+                const msg = `<div class="trick"></div>`;
+                eTargetCurrentBox.innerHTML = eTargetCurrentBox.innerHTML - msg
+                eTargetCurrentBox.style.backgroundColor = "white"
+                eTargetCurrentBox.innerHTML = `<span>${variable}</span>`;
+                //FINDING INDEX OF CURRENT OBJECT AND REMOVE FROM ARRAY
+                const index = storage.findIndex(i => i['02'] == variable)
+                storage.splice(index, 1)
+                return
+            }
+        }
+    }
+    // listiner for all reminders 
+    const taskList = document.querySelectorAll('.date-picker .trick');
+
+    for (const task of taskList) {
+        task.addEventListener('click', trickListinerTrigger)
+    }
     //number of day in any month of any year
     function daysInMonth(iMonth, iYear) {
         return 32 - new Date(iYear, iMonth, 32).getDate();
     }
 
-//LISTINER FOR SWITCH MONTHS
+    //LISTINER FOR SWITCH MONTHS
     const btnListiner = document.querySelectorAll('button')
     btnListiner.forEach(btn => {
 
-        btn.addEventListener('click', (trickListinerTrigger) => {
+        btn.addEventListener('click', (e) => {
             for (const i of storage) {
                 if (currentMonth == i['03']) {
                     //recreating marked items again
